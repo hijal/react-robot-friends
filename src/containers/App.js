@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import CardList from './components/CardList';
-import SeachBox from './components/SearchBox';
-import './App.css'
+import CardList from '../components/CardList';
+import SeachBox from '../components/SearchBox';
+import Scroll from '../components/Scroll';
+import './App.css';
 
 function App() {
 	const [users, setUsers] = useState([]);
@@ -21,21 +22,23 @@ function App() {
 		return robot.name.toLowerCase().includes(searchfield.toLowerCase());
 	});
 
-	if (users.length === 0) {
-		return (
-			<div className='tc'>
-				<h1>Loading</h1>
-			</div>
-		);
-	} else {
-		return (
-			<div className='tc'>
-				<h1 className="f1">RoboFriends</h1>
-				<SeachBox onSearchChange={onChangeHandler} />
+	const content = (
+		<div className='tc'>
+			<h1 className='f1'>RoboFriends</h1>
+			<SeachBox onSearchChange={onChangeHandler} />
+			<Scroll>
 				<CardList users={filteredUsers} />
-			</div>
-		);
-	}
+			</Scroll>
+		</div>
+	);
+
+	const loading = (
+		<div className='tc'>
+			<h1>Loading</h1>
+		</div>
+	);
+
+	return !users.length ? loading : content;
 }
 
 export default App;
