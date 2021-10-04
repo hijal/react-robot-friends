@@ -1,3 +1,5 @@
+import React from "react";
+
 function SearchBox({ onSearchChange }) {
 	return (
 		<div className='pa2'>
